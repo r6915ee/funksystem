@@ -9,7 +9,6 @@ pub mod core;
 use core::FunkAspectPlugin;
 
 fn main() {
-    println!("Hello, world!");
     App::new()
         .add_plugins((DefaultPlugins, FunkAspectPlugin))
         .run();
