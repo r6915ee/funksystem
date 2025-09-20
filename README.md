@@ -1,6 +1,4 @@
-<div style="text-align:center;">
-    <h1>Funk Aspect</h1>
-</div>
+<h1 align="center">Funk Aspect</h1>
 
 **Funk Aspect** is a fangame engine for
 [Friday Night Funkin'](https://funkin.me/), a well-known rhythm game, that aims
