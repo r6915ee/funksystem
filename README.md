@@ -2,9 +2,9 @@
 
 > [!NOTE]
 > The following lists available mirrors of the repository:
-> [Codeberg](https://codeberg.org/r6915ee/funk-aspect) (Official repository,
+> * [Codeberg](https://codeberg.org/r6915ee/funk-aspect) (Official repository,
 > contribute here!)
-> [GitHub](https://github.com/r6915ee/funk-aspect)
+> * [GitHub](https://github.com/r6915ee/funk-aspect)
 
 **Funk Aspect** is a fangame engine for
 [Friday Night Funkin'](https://funkin.me/), a well-known rhythm game, that aims
