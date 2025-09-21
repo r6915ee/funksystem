@@ -1,4 +1,4 @@
-<h1 align="center">Funk Aspect</h1>
+<h1 align="center">!["Funk Aspect" Logo](./assets/logo.png)</h1>
 
 > [!NOTE]
 > The following lists available mirrors of the repository:
