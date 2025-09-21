@@ -6,6 +6,12 @@
 > contribute here!)
 > * [GitHub](https://github.com/r6915ee/funk-aspect)
 
+> [!CAUTION]
+> Funk Aspect is still in the early stages of development. Contributions are
+> welcome under the MIT license.
+>
+> A [TODO.md](./TODO.md) file exists that details much of the plans so far.
+
 **Funk Aspect** is a fangame engine for
 [Friday Night Funkin'](https://funkin.me/), a well-known rhythm game, that aims
 to primarily be data-oriented; that is, Funk Aspect introduces the following
