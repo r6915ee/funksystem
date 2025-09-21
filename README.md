@@ -5,7 +5,7 @@
 > [!NOTE]
 > The following lists available mirrors of the repository:
 > * [Codeberg](https://codeberg.org/r6915ee/funk-aspect) (Official repository,
-> contribute here!)
+> contribute by sending issues and pull requests here!)
 > * [GitHub](https://github.com/r6915ee/funk-aspect)
 
 > [!CAUTION]
