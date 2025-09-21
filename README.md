@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/logo.png" alt="'Funk Aspect' Logo">
+  <h1><img src="assets/logo.png" alt="'Funk Aspect' Logo"></h1>
 </div>
 
 > [!NOTE]
