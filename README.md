@@ -35,6 +35,9 @@ differences from most other fangame engines for Friday Night Funkin':
 > [NixOS](https://nixos.org/) users have a Nix shell configuration available
 > that introduces most of the dependencies.
 
+The [Rust toolchain](https://rust-lang.org/) is necessary for compilation.
+Either use Rustup, or install the compiler, Cargo, and Clippy.
+
 Compilation can be performed using the typical subcommand:
 
 ```sh
