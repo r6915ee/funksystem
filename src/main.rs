@@ -1,11 +1,12 @@
-//! Main [Funk Aspect](https://codeberg.org/r6915ee/funk-aspect/) crate.
+//! Main [FunkSystem](https://codeberg.org/r6915ee/funksystem/) crate.
 //!
-//! **Funk Aspect** is a fangame engine for [Friday Night
+//! **FunkSystem** is a fangame engine for [Friday Night
 //! Funkin'](https://funkin.me/) that relies on [Rust](https://rust-lang.org/)
 //! and [Bevy](https://bevy.org/) to provide a memory-safe, practical modding
-//! experience.
+//! experience. It also has a client-based architecture that allows common
+//! engines to be built.
 
-/// Provides backend functionality for Funk Aspect.
+/// Provides backend functionality for FunkSystem.
 ///
 /// The `core` provides necessary modules that the entire game uses. The core
 /// is necessary for even basic usage of the engine.
