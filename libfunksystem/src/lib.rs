@@ -1,14 +1,11 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
-}
+//! Primary functionality for
+//! [FunkSystem](https://codeberg.org/r6915ee/funksystem/) clients.
+//!
+//! This library provides the main functionality behind **FunkSystem**, a
+//! client-based fangame engine for [Friday Night Funkin'](https://funkin.me/).
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
-}
+/// Provides backend functionality for FunkSystem.
+///
+/// The `core` provides necessary modules that the entire game uses. The core
+/// is necessary for even basic usage of the engine.
+pub mod core;

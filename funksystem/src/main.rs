@@ -1,4 +1,4 @@
-//! Main [FunkSystem](https://codeberg.org/r6915ee/funksystem/) crate.
+//! Main [FunkSystem](https://codeberg.org/r6915ee/funksystem/) client.
 //!
 //! **FunkSystem** is a fangame engine for [Friday Night
 //! Funkin'](https://funkin.me/) that relies on [Rust](https://rust-lang.org/)
@@ -6,14 +6,8 @@
 //! experience. It also has a client-based architecture that allows common
 //! engines to be built.
 
-/// Provides backend functionality for FunkSystem.
-///
-/// The `core` provides necessary modules that the entire game uses. The core
-/// is necessary for even basic usage of the engine.
-pub mod core;
-
 use bevy::prelude::*;
-use core::FunkSystemPlugin;
+use libfunksystem::core::FunkSystemPlugin;
 
 /// Entry point for the program.
 fn main() {

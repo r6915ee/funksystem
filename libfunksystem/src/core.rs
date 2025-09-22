@@ -20,7 +20,7 @@ pub fn hello_system() {
 }
 
 /// System responsible for creating save data.
-fn save_system() {
+pub fn save_system() {
     match generate_save_dir() {
         Ok(_) => (),
         Err(e) => match e.kind() {
