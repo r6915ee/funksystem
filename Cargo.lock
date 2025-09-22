@@ -2155,6 +2155,7 @@ version = "0.1.0"
 dependencies = [
  "bevy",
  "bevy-panic-handler",
+ "dirs",
  "ron 0.11.0",
  "serde",
 ]
