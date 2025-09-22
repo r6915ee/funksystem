@@ -6,7 +6,6 @@ use bevy::prelude::*;
 /// [positioning](graphics::Position), and more.
 pub mod graphics;
 
-use graphics::*;
 
 /// Basic sample system.
 pub fn hello_system() {
