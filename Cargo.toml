@@ -1,5 +1,5 @@
 [package]
-name = "funk-aspect"
+name = "funksystem"
 authors = ["r6915ee <astergthefourth@gmail.com>"]
 description = "Alternative fangame engine for Friday Night Funkin'"
 version = "0.1.0"

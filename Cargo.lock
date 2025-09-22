@@ -2150,7 +2150,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "funk-aspect"
+name = "funksystem"
 version = "0.1.0"
 dependencies = [
  "bevy",
