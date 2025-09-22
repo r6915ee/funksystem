@@ -1,4 +1,3 @@
-use bevy::prelude::*;
 
 /// A module defining most graphics capabilities.
 ///
@@ -6,6 +5,7 @@ use bevy::prelude::*;
 /// [positioning](graphics::Position), and more.
 pub mod graphics;
 
+use bevy::prelude::*;
 
 /// Basic sample system.
 pub fn hello_system() {
