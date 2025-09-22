@@ -12,7 +12,8 @@
 > FunkSystem is still in the early stages of development. Contributions are
 > welcome under the MIT license.
 >
-> A [TODO.md](./TODO.md) file exists that details much of the plans so far.
+> [Codeberg projects](https://codeberg.org/r6915ee/funksystem/projects) is used
+> to detail what needs to be done for a release.
 
 **FunkSystem** is a fangame engine for
 [Friday Night Funkin'](https://funkin.me/), a well-known rhythm game, that aims
