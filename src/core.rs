@@ -38,12 +38,12 @@ fn save_system() {
 
 /// Provides most systems and components directly.
 ///
-/// `FunkAspectPlugin` is the primary plugin loaded by the game; that is,
+/// `FunkSystemPlugin` is the primary plugin loaded by the game; that is,
 /// it is a [Bevy](https://bevy.org/) plugin which offers most common
 /// systems and components for the game.
-pub struct FunkAspectPlugin;
+pub struct FunkSystemPlugin;
 
-impl Plugin for FunkAspectPlugin {
+impl Plugin for FunkSystemPlugin {
     fn build(&self, app: &mut App) {
         app.add_systems(Startup, hello_system);
         app.add_systems(Startup, save_system);

@@ -13,7 +13,7 @@
 pub mod core;
 
 use bevy::prelude::*;
-use core::FunkAspectPlugin;
+use core::FunkSystemPlugin;
 
 /// Entry point for the program.
 fn main() {
@@ -21,7 +21,7 @@ fn main() {
         .add_plugins((
             bevy_panic_handler::PanicHandler::new().build(),
             DefaultPlugins,
-            FunkAspectPlugin,
+            FunkSystemPlugin,
         ))
         .run();
 }
