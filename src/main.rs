@@ -5,14 +5,13 @@
 //! and [Bevy](https://bevy.org/) to provide a memory-safe, practical modding
 //! experience.
 
-use bevy::prelude::*;
-
 /// Provides backend functionality for Funk Aspect.
 ///
 /// The `core` provides necessary modules that the entire game uses. The core
 /// is necessary for even basic usage of the engine.
 pub mod core;
 
+use bevy::prelude::*;
 use core::FunkAspectPlugin;
 
 /// Entry point for the program.
