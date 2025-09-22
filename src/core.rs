@@ -1,9 +1,14 @@
-
 /// A module defining most graphics capabilities.
 ///
 /// Graphics are handled through this module. This includes thing such as
 /// [positioning](graphics::Position), and more.
 pub mod graphics;
+
+/// A module defining settings integration.
+///
+/// Settings are managed through this module. They are parsed through [Rusty
+/// Object Notation](https://docs.rs/ron/), a JSON-like language.
+pub mod data;
 
 use bevy::prelude::*;
 
