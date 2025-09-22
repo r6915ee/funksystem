@@ -1,33 +1,38 @@
 <div align="center">
-  <h1><img src="assets/logo.png" alt="'Funk Aspect' Logo"></h1>
+  <h1><img src="assets/logo.png" alt="'FunkSystem' Logo"></h1>
 </div>
 
 > [!NOTE]
 > The following lists available mirrors of the repository:
-> * [Codeberg](https://codeberg.org/r6915ee/funk-aspect) (Official repository,
+> * [Codeberg](https://codeberg.org/r6915ee/funksystem) (Official repository,
 > contribute by sending issues and pull requests here!)
-> * [GitHub](https://github.com/r6915ee/funk-aspect)
+> * [GitHub](https://github.com/r6915ee/funksystem)
 
 > [!CAUTION]
-> Funk Aspect is still in the early stages of development. Contributions are
+> FunkSystem is still in the early stages of development. Contributions are
 > welcome under the MIT license.
 >
 > A [TODO.md](./TODO.md) file exists that details much of the plans so far.
 
-**Funk Aspect** is a fangame engine for
+**FunkSystem** is a fangame engine for
 [Friday Night Funkin'](https://funkin.me/), a well-known rhythm game, that aims
-to primarily be data-oriented; that is, Funk Aspect introduces the following
+to primarily be data-oriented; that is, FunkSystem introduces the following
 differences from most other fangame engines for Friday Night Funkin':
 
-* Funk Aspect uses the **Entity Component System** paradigm, short for **ECS**.
+* FunkSystem uses the **Entity Component System** paradigm, short for **ECS**.
   Entities comprise of components, components define data, and systems operate
   on entities with certain components. This allows the game to rely on
   composition primarily instead of inheritance, allowing easier modification
   for most things.
-* Unlike most other engines, Funk Aspect is made with
+* Unlike most other engines, FunkSystem is made with
   [Rust](https://rust-lang.org/), which allows it to make use of the advantages
-  of the ecosystem. Alongside this, Funk Aspect uses the
+  of the ecosystem. Alongside this, FunkSystem uses the
   [Bevy](https://bevy.org/) engine internally.
+* FunkSystem is designed to rely on a client architecture by being modular.
+  This allows multiple clients to be built, allowing custom clients to be
+  built more properly.
+* Most prior concepts are discarded to aid with the client architecture.
+  However, utilities are available for migration.
 
 ## Building
 

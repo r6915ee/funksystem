@@ -1,6 +1,6 @@
 # TODO
 
-This file describes the todo list of **Funk Aspect**.
+This file describes the todo list of **FunkSystem**.
 
 > [!NOTE]
 > Version numbers are in [0Ver](https://0ver.org/).
@@ -12,4 +12,4 @@ This file describes the todo list of **Funk Aspect**.
 - [ ] Add main gameplay functionality
 - [ ] Provide chart editing and/or loading through serde (preferrably RON)
 - [ ] Implement stage modification
-- [ ] Add settings mechanism
+- [x] Add settings mechanism
