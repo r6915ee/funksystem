@@ -17,6 +17,10 @@ use core::FunkAspectPlugin;
 /// Entry point for the program.
 fn main() {
     App::new()
-        .add_plugins((DefaultPlugins, FunkAspectPlugin))
+        .add_plugins((
+            bevy_panic_handler::PanicHandler::new().build(),
+            DefaultPlugins,
+            FunkAspectPlugin,
+        ))
         .run();
 }
