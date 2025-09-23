@@ -6,7 +6,7 @@
 //! experience. It also has a client-based architecture that allows common
 //! engines to be built.
 
-use bevy::prelude::*;
+use bevy::{log::LogPlugin, prelude::*};
 use funksyscore::FunkSystemPlugin;
 
 /// Entry point for the program.
@@ -15,7 +15,7 @@ fn main() {
     App::new()
         .add_plugins((
             bevy_panic_handler::PanicHandler::new().build(),
-            DefaultPlugins,
+            DefaultPlugins.build().disable::<LogPlugin>(),
             FunkSystemPlugin,
         ))
         .run();
