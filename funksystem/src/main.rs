@@ -7,7 +7,7 @@
 //! engines to be built.
 
 use bevy::prelude::*;
-use funksystem::core::FunkSystemPlugin;
+use funksyscore::FunkSystemPlugin;
 
 /// Entry point for the program.
 fn main() {

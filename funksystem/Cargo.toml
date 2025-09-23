@@ -10,7 +10,7 @@ keywords = ["game", "games", "mod"]
 edition = "2024"
 
 [dependencies]
-libfunksystem = { version = "0.1.0", path = "../libfunksystem" }
+funksyscore = { version = "0.1.0", path = "../funksyscore" }
 bevy = { version = "0.16.1", default-features = false, features = [
   "bevy_asset",
   "bevy_audio",
@@ -31,7 +31,7 @@ clang_log = "2.1.2"
 bevy-panic-handler = "5.0.0"
 
 [dev-dependencies]
-libfunksystem = { version = "0.1.0", path = "../libfunksystem" }
+funksyscore = { version = "0.1.0", path = "../funksyscore" }
 
 [features]
 default = ["fast-compile"]

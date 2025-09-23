@@ -1,3 +1,9 @@
+//! Primary functionality for
+//! [FunkSystem](https://codeberg.org/r6915ee/funksystem/) clients.
+//!
+//! This library provides the main functionality behind **FunkSystem**, a
+//! client-based fangame engine for [Friday Night Funkin'](https://funkin.me/).
+
 /// A module defining most graphics capabilities.
 ///
 /// Graphics are handled through this module. This includes thing such as

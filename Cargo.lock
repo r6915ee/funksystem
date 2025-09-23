@@ -2169,13 +2169,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "funksyscore"
+version = "0.1.0"
+dependencies = [
+ "bevy",
+ "dirs",
+ "log",
+ "ron 0.11.0",
+ "serde",
+]
+
+[[package]]
 name = "funksystem"
 version = "0.1.0"
 dependencies = [
  "bevy",
  "bevy-panic-handler",
  "clang_log",
- "libfunksystem",
+ "funksyscore",
  "log",
 ]
 
@@ -2717,17 +2728,6 @@ name = "libc"
 version = "0.2.175"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6a82ae493e598baaea5209805c49bbf2ea7de956d50d7da0da1164f9c6d28543"
-
-[[package]]
-name = "libfunksystem"
-version = "0.1.0"
-dependencies = [
- "bevy",
- "dirs",
- "log",
- "ron 0.11.0",
- "serde",
-]
 
 [[package]]
 name = "libloading"
