@@ -3,6 +3,9 @@ name = "libfunksystem"
 version = "0.1.0"
 edition = "2024"
 
+[lib]
+name = "funksystem"
+
 [dependencies]
 bevy = { version = "0.16.1" }
 dirs = "6.0.0"
