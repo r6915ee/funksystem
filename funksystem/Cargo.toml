@@ -11,7 +11,21 @@ edition = "2024"
 
 [dependencies]
 libfunksystem = { version = "0.1.0", path = "../libfunksystem" }
-bevy = { version = "0.16.1" }
+bevy = { version = "0.16.1", default-features = false, features = [
+  "bevy_asset",
+  "bevy_audio",
+  "bevy_core_pipeline",
+  "bevy_render",
+  "bevy_scene",
+  "bevy_sprite",
+  "bevy_state",
+  "bevy_text",
+  "bevy_window",
+  "bevy_winit",
+  "png",
+  "vorbis",
+  "x11"
+] }
 log = "0.4"
 clang_log = "2.1.2"
 bevy-panic-handler = "5.0.0"

@@ -1564,6 +1564,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "clang_log"
+version = "2.1.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "887933cc4c72da99cb14a24d6246819f2e253eb7cffe0d271f57e1ac1260776f"
+dependencies = [
+ "colored",
+ "log",
+]
+
+[[package]]
 name = "codespan-reporting"
 version = "0.11.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1571,6 +1581,15 @@ checksum = "3538270d33cc669650c4b093848450d380def10c331d38c768e34cac80576e6e"
 dependencies = [
  "termcolor",
  "unicode-width",
+]
+
+[[package]]
+name = "colored"
+version = "3.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fde0e0ec90c9dfb3b4b1a0891a7dcd0e2bffde2f7efed5fe7c9bb00e5bfb915e"
+dependencies = [
+ "windows-sys 0.59.0",
 ]
 
 [[package]]
@@ -2155,7 +2174,9 @@ version = "0.1.0"
 dependencies = [
  "bevy",
  "bevy-panic-handler",
+ "clang_log",
  "libfunksystem",
+ "log",
 ]
 
 [[package]]
@@ -2703,6 +2724,7 @@ version = "0.1.0"
 dependencies = [
  "bevy",
  "dirs",
+ "log",
  "ron 0.11.0",
  "serde",
 ]
