@@ -1,6 +1,63 @@
 use dirs::config_dir;
-use serde::{Deserialize, Serialize};
-use std::{fs::create_dir, io, path::PathBuf};
+use serde::{de::DeserializeOwned, Deserialize, Serialize};
+use std::{
+    fs,
+    fs::{create_dir, read_to_string},
+    io::{Error, ErrorKind, Result as IoResult},
+    path::PathBuf,
+};
+
+/// Presents several methods to read and write from respective RON files.
+///
+/// In order to simplify most usages of data files, this trait is implemented
+/// by structures that can be serialized and deserialize in order to allow
+/// this.
+pub trait SaveData: Default {
+    /// Get the assigned filename of the structure with this trait.
+    fn get_filename() -> String;
+    /// Reads the assigned file and copies it to the structure.
+    ///
+    /// If the data couldn't be copied for whatever reason, then this method
+    /// will instead return the default structure, as allowed by [Default].
+    fn read() -> Self
+    where
+        Self: DeserializeOwned,
+    {
+        match ron_path(Self::get_filename().as_str()) {
+            Ok(path) => match read_to_string(path) {
+                Ok(contents) => match ron::from_str::<Self>(contents.as_str()) {
+                    Ok(data) => data,
+                    Err(_) => Self::default(),
+                },
+                Err(_) => Self::default(),
+            },
+            Err(_) => Self::default(),
+        }
+    }
+    /// Writes the structure's fields to the assigned file.
+    ///
+    /// The structure's data is serialized and then written to a file, based on
+    /// [ron_path]'s output. If [ron_path] fails, then it will instead used the
+    /// working directory.
+    ///
+    /// Use the [Result](std::io::Result) dispatched for checking errors, *not*
+    /// for setting values, since an okay value is always an empty tuple.
+    fn write(&self) -> IoResult<()>
+    where
+        Self: Serialize,
+    {
+        match fs::write(
+            match ron_path(Self::get_filename().as_str()) {
+                Ok(path) => path,
+                Err(_) => PathBuf::from(Self::get_filename() + ".ron"),
+            },
+            ron::ser::to_string_pretty(self, ron::ser::PrettyConfig::default()).unwrap(),
+        ) {
+            Ok(_) => Ok(()),
+            Err(e) => Err(e),
+        }
+    }
+}
 
 /// Defines all valid keybindings.
 #[derive(Debug, Deserialize, Serialize)]
@@ -56,84 +113,60 @@ impl Default for Settings {
     }
 }
 
+impl SaveData for Settings {
+    fn get_filename() -> String {
+        "settings".to_string()
+    }
+}
+
 /// Convenience function for quickly generating the save directory.
-pub fn generate_save_dir() -> io::Result<()> {
+pub fn generate_save_dir() -> IoResult<()> {
     match config_dir() {
         Some(path) => {
             let mut path: PathBuf = path;
-            path.push(env!("CARGO_CRATE_NAME"));
+            path.push(std::env::var("CARGO_PKG_NAME").unwrap_or("funksystem".to_string()));
             create_dir(&path)
         }
-        None => io::Result::Err(io::Error::new(
-            io::ErrorKind::NotFound,
+        None => IoResult::Err(Error::new(
+            ErrorKind::NotFound,
             "global config directory not found",
         )),
     }
 }
 
 /// Convenience function for fetching the save directory.
-pub fn fetch_save_dir() -> io::Result<Option<PathBuf>> {
+pub fn fetch_save_dir() -> IoResult<PathBuf> {
     match config_dir() {
         Some(path) => {
             let mut path: PathBuf = path;
-            path.push(env!("CARGO_CRATE_NAME"));
+            path.push(std::env::var("CARGO_PKG_NAME").unwrap_or("funksystem".to_string()));
             match path.try_exists() {
                 Ok(exists) => match exists {
-                    true => Ok(Some(path)),
-                    false => Ok(None),
+                    true => Ok(path),
+                    false => Err(Error::new(ErrorKind::NotFound, "save directory not found")),
                 },
                 Err(e) => Err(e),
             }
         }
-        None => io::Result::Err(io::Error::new(
-            io::ErrorKind::NotFound,
+        None => Err(Error::new(
+            ErrorKind::NotFound,
             "global config directory not found",
         )),
     }
 }
 
-/// Fetches a certain RON path in the config directory.
-pub fn get_ron(data: &str) -> io::Result<Option<PathBuf>> {
-    match fetch_save_dir() {
-        Ok(context) => match context {
-            Some(path) => {
-                let mut path: PathBuf = path;
-                path.push(data);
-                path.set_extension("ron");
-
-                match path.try_exists() {
-                    Ok(exists) => match exists {
-                        true => Ok(Some(path)),
-                        false => Ok(None),
-                    },
-                    Err(e) => Err(e),
-                }
-            }
-            None => Ok(None),
-        },
-        Err(e) => Err(e),
-    }
-}
-
-/// Reads the save data, and returns its output as [Settings].
+/// Generates a valid RON path.
 ///
-/// Do note that this function in particular may construct the default values
-/// for [Settings] if the save data cannot be read.
-pub fn read_settings() -> Settings {
-    match get_ron("settings") {
-        Ok(context) => match context {
-            Some(path) => match std::fs::read_to_string(path) {
-                Ok(content) => {
-                    let settings: Settings = match ron::from_str(content.as_str()) {
-                        Ok(content) => content,
-                        Err(_) => Settings::default(),
-                    };
-                    settings
-                }
-                Err(_) => Settings::default(),
-            },
-            None => Settings::default(),
-        },
-        Err(_) => Settings::default(),
+/// This produces a valid RON path for either read or write operations to use.
+/// It will fail if no save directory is available.
+pub fn ron_path(filename: &str) -> IoResult<PathBuf> {
+    match fetch_save_dir() {
+        Ok(path) => {
+            let mut path: PathBuf = path;
+            path.push(filename);
+            path.set_extension("ron");
+            Ok(path)
+        }
+        Err(e) => Err(e),
     }
 }

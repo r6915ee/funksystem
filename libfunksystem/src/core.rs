@@ -29,7 +29,10 @@ pub fn save_system() {
             _ => (),
         },
     }
-    let settings: Settings = read_settings();
+
+    let settings: Settings = Settings::read();
+    settings.write().unwrap();
+
     println!(
         "Parsed settings: {}",
         ron::ser::to_string_pretty(&settings, ron::ser::PrettyConfig::default()).unwrap()
