@@ -12,6 +12,8 @@ edition = "2024"
 [dependencies]
 libfunksystem = { version = "0.1.0", path = "../libfunksystem" }
 bevy = { version = "0.16.1" }
+log = "0.4"
+clang_log = "2.1.2"
 bevy-panic-handler = "5.0.0"
 
 [dev-dependencies]
