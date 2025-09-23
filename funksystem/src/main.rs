@@ -11,6 +11,7 @@ use libfunksystem::core::FunkSystemPlugin;
 
 /// Entry point for the program.
 fn main() {
+    clang_log::init_error(log::Level::Warn, log::Level::Error, "funksystem");
     App::new()
         .add_plugins((
             bevy_panic_handler::PanicHandler::new().build(),
