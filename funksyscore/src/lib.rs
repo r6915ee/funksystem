@@ -34,9 +34,9 @@
 /// [positioning](graphics::Position), and more.
 pub mod graphics;
 
-/// A module defining settings integration.
+/// A module defining most data solutions.
 ///
-/// Settings are managed through this module. They are parsed through [Rusty
+/// General data is managed through this module. They are parsed through [Rusty
 /// Object Notation](https://docs.rs/ron/), a JSON-like language.
 pub mod data;
 
