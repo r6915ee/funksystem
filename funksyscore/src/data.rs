@@ -7,14 +7,22 @@ use std::{
     path::PathBuf,
 };
 
+/// Primary data trait, through [RON](https://docs.rs/ron/).
+///
+/// All data is handled through this trait, typically used as a supertrait.
+/// It provides the methods necessary to properly use, serialize and
+/// deserialize data easily.
+pub trait DataContext: Serialize + DeserializeOwned {
+    /// Get the assigned filename of the structure with this trait.
+    fn get_filename() -> String;
+}
+
 /// Presents several methods to read and write from respective RON files.
 ///
 /// In order to simplify most usages of data files, this trait is implemented
 /// by structures that can be serialized and deserialize in order to allow
 /// this.
-pub trait SaveData: Default {
-    /// Get the assigned filename of the structure with this trait.
-    fn get_filename() -> String;
+pub trait SaveData: Default + DataContext {
     /// Reads the assigned file and copies it to the structure.
     ///
     /// If the data couldn't be copied for whatever reason, then this method
@@ -39,9 +47,6 @@ pub trait SaveData: Default {
     /// The structure's data is serialized and then written to a file, based on
     /// [ron_path]'s output. If [ron_path] fails, then it will instead used the
     /// working directory.
-    ///
-    /// Use the [Result](std::io::Result) dispatched for checking errors, *not*
-    /// for setting values, since an okay value is always an empty tuple.
     fn write(&self) -> IoResult<()>
     where
         Self: Serialize,
@@ -113,11 +118,13 @@ impl Default for Settings {
     }
 }
 
-impl SaveData for Settings {
+impl DataContext for Settings {
     fn get_filename() -> String {
         "settings".to_string()
     }
 }
+
+impl SaveData for Settings {}
 
 /// Convenience function for quickly generating the save directory.
 pub fn generate_save_dir() -> IoResult<()> {
