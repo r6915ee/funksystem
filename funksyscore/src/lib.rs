@@ -3,6 +3,30 @@
 //!
 //! This library provides the main functionality behind **FunkSystem**, a
 //! client-based fangame engine for [Friday Night Funkin'](https://funkin.me/).
+//!
+//! # Description
+//!
+//! `funksyscore`'s main responsibility is to handle most FunkSystem-specific
+//! information for both clients *and* additional utilities. What this means
+//! is that provides a unified interface for each of its operations.
+//!
+//! # Usage
+//!
+//! Clients will typically use [`FunkSystemPlugin`] if they're made in
+//! [Bevy](https://bevy.org/). This is a plugin that introduces particular
+//! systems that are useful to any client following a similar structure
+//! to the main client.
+//!
+//! Including it is as simple as:
+//!
+//! ```
+//! use bevy::prelude::*;
+//! use funksyscore::FunkSystemPlugin;
+//!
+//! fn main() {
+//!     App::new().add_plugins((FunkSystemPlugin)).run();
+//! }
+//! ```
 
 /// A module defining most graphics capabilities.
 ///
@@ -18,8 +42,8 @@ pub mod data;
 
 use bevy::prelude::*;
 use data::*;
-use std::io::ErrorKind;
 use log::info;
+use std::io::ErrorKind;
 
 /// Basic sample system.
 pub fn hello_system() {
@@ -46,11 +70,11 @@ pub fn save_system() {
     );
 }
 
-/// Provides most systems and components directly.
+/// Provides most systems directly.
 ///
 /// `FunkSystemPlugin` is the primary plugin loaded by the game; that is,
 /// it is a [Bevy](https://bevy.org/) plugin which offers most common
-/// systems and components for the game.
+/// systems for the game.
 pub struct FunkSystemPlugin;
 
 impl Plugin for FunkSystemPlugin {
