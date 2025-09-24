@@ -27,10 +27,7 @@ pub trait SaveData: Default + DataContext {
     ///
     /// If the data couldn't be copied for whatever reason, then this method
     /// will instead return the default structure, as allowed by [Default].
-    fn read() -> Self
-    where
-        Self: DeserializeOwned,
-    {
+    fn read() -> Self {
         match ron_path(Self::get_filename().as_str()) {
             Ok(path) => match read_to_string(path) {
                 Ok(contents) => match ron::from_str::<Self>(contents.as_str()) {
@@ -47,10 +44,7 @@ pub trait SaveData: Default + DataContext {
     /// The structure's data is serialized and then written to a file, based on
     /// [ron_path]'s output. If [ron_path] fails, then it will instead used the
     /// working directory.
-    fn write(&self) -> IoResult<()>
-    where
-        Self: Serialize,
-    {
+    fn write(&self) -> IoResult<()> {
         match fs::write(
             match ron_path(Self::get_filename().as_str()) {
                 Ok(path) => path,
