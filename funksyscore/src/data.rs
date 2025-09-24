@@ -10,11 +10,29 @@ use std::{
 /// Primary data trait, through [RON](https://docs.rs/ron/).
 ///
 /// All data is handled through this trait, typically used as a supertrait.
-/// It provides the methods necessary to properly use, serialize and
-/// deserialize data easily.
+/// It provides a few shortcut methods for implementations to use.
 pub trait DataContext: Serialize + DeserializeOwned {
     /// Get the assigned filename of the structure with this trait.
-    fn get_filename() -> String;
+    ///
+    /// This will return an [Option] that contains a [String] if it's valid.
+    /// Most implementations will typically use a static, compile-time only
+    /// value, that unfortunately others may not even support, hence the usage
+    /// of [Option] as part of the return value.
+    ///
+    /// If you want to get a runtime-only filename that is dependent on the
+    /// instantiated structure, then use
+    /// [get_current_filename](DataContext::get_current_filename).
+    fn get_filename() -> Option<String>;
+    /// Gets the current instance's filename.
+    ///
+    /// This is a runtime-dependent variant of
+    /// [get_filename](DataContext::get_filename) that is dependent on the
+    /// current instance of the structure. It will always return a [String],
+    /// however, unlike its compile-time variant.
+    ///
+    /// Some implementations may have this as a quick shortcut to
+    /// [get_filename](DataContext::get_filename), such as [Settings].
+    fn get_current_filename(self) -> String;
 }
 
 /// Presents several methods to read and write from respective RON files.
@@ -28,7 +46,7 @@ pub trait SaveData: Default + DataContext {
     /// If the data couldn't be copied for whatever reason, then this method
     /// will instead return the default structure, as allowed by [Default].
     fn read() -> Self {
-        match ron_path(Self::get_filename().as_str()) {
+        match ron_path(Self::get_filename().unwrap().as_str()) {
             Ok(path) => match read_to_string(path) {
                 Ok(contents) => match ron::from_str::<Self>(contents.as_str()) {
                     Ok(data) => data,
@@ -46,9 +64,9 @@ pub trait SaveData: Default + DataContext {
     /// working directory.
     fn write(&self) -> IoResult<()> {
         match fs::write(
-            match ron_path(Self::get_filename().as_str()) {
+            match ron_path(Self::get_filename().unwrap().as_str()) {
                 Ok(path) => path,
-                Err(_) => PathBuf::from(Self::get_filename() + ".ron"),
+                Err(_) => PathBuf::from(Self::get_filename().unwrap() + ".ron"),
             },
             ron::ser::to_string_pretty(self, ron::ser::PrettyConfig::default()).unwrap(),
         ) {
@@ -113,8 +131,11 @@ impl Default for Settings {
 }
 
 impl DataContext for Settings {
-    fn get_filename() -> String {
-        "settings".to_string()
+    fn get_filename() -> Option<String> {
+        Some("settings".to_string())
+    }
+    fn get_current_filename(self) -> String {
+        Settings::get_filename().unwrap()
     }
 }
 
