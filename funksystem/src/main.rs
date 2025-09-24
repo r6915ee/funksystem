@@ -8,10 +8,12 @@
 
 use bevy::{log::LogPlugin, prelude::*};
 use funksyscore::FunkSystemPlugin;
+use log::info;
 
 /// Entry point for the program.
 fn main() {
-    clang_log::init_error(log::Level::Warn, log::Level::Error, "funksystem");
+    clang_log::init(log::Level::Warn, "funksystem");
+    info!("initializing game");
     App::new()
         .add_plugins((
             bevy_panic_handler::PanicHandler::new().build(),

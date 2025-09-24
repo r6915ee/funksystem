@@ -19,10 +19,11 @@ pub mod data;
 use bevy::prelude::*;
 use data::*;
 use std::io::ErrorKind;
+use log::info;
 
 /// Basic sample system.
 pub fn hello_system() {
-    println!("Hello, world!");
+    info!("Hello, world!");
 }
 
 /// System responsible for creating save data.
@@ -39,7 +40,7 @@ pub fn save_system() {
     let settings: Settings = Settings::read();
     settings.write().unwrap();
 
-    println!(
+    info!(
         "Parsed settings: {}",
         ron::ser::to_string_pretty(&settings, ron::ser::PrettyConfig::default()).unwrap()
     );
