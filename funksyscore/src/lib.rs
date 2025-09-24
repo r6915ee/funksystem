@@ -40,6 +40,31 @@ pub mod graphics;
 /// Object Notation](https://docs.rs/ron/), a JSON-like language.
 pub mod data;
 
+/// A module defining chart-specific data solutions.
+///
+/// Charts are the primary focus of `funksyscore` and act very differently
+/// from other solutions.
+///
+/// They use the following terminology:
+///
+/// * **Steps**: Steps are the primary unit of measurement for charts, and
+///   are typically one fourth of a beat.
+/// * **Beats**: Beats are a secondary unit of measurement for charts, and
+///   are typically one fourth of a measure.
+/// * **Measures**: Measures are an additional unit of measurement for charts,
+///   and are typically distributed on their own.
+/// * **Hooks**: Hooks are assigned a certain step. When that step is reached,
+///   then the hook is run, creating an entity with the hook's assigned
+///   components at that point in time.
+/// * **Layers**: Layers are assigned a certain set of hooks and may be
+///   activated and deactivated at will.
+/// * **Sets**: Typically identified in-game as *difficulties*, sets activate
+///   and disable certain layers.
+///
+/// This system allows reusability, in contrast to other chart systems, and
+/// exists to make use of the Entity Component System paradigm.
+pub mod chart;
+
 use bevy::prelude::*;
 use data::*;
 use log::info;
