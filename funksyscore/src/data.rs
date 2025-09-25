@@ -27,10 +27,9 @@ pub trait DataContext: Serialize + DeserializeOwned {
     ///
     /// Do note that the default implementation uses
     /// [get_filename](DataContext::get_filename) and expects it to return a
-    /// [`Some`](Option::Some). If the behavior of that implementation
-    /// contradicts this requirement, then make sure to provide the
-    /// implementation of this method yourself. Otherwise, the method will
-    /// panic.
+    /// [`Some`]. If the behavior of that implementation contradicts this
+    /// requirement, then make sure to provide the implementation of this
+    /// method yourself. Otherwise, the method will panic.
     fn get_current_filename(self) -> String {
         match Self::get_filename() {
             Some(str) => str,
