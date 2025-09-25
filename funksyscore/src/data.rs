@@ -146,9 +146,6 @@ impl DataContext for Settings {
     fn get_filename() -> Option<String> {
         Some("settings".to_string())
     }
-    fn get_current_filename(self) -> String {
-        Settings::get_filename().unwrap()
-    }
 }
 
 impl SaveData for Settings {}
