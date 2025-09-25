@@ -2,12 +2,19 @@
 //!
 //! **FunkSystem** is a fangame engine for [Friday Night
 //! Funkin'](https://funkin.me/) that relies on [Rust](https://rust-lang.org/)
-//! and [Bevy](https://bevy.org/) to provide a memory-safe, practical modding
-//! experience. It also has a client-based architecture that allows common
-//! engines to be built.
+//! to provide a memory-safe, practical modding experience. It also has a
+//! client-based architecture that allows common engines to be built.
+//!
+//! This crate in specific is the main client, for which all libraries
+//! stored in the monorepo are built for.
+//!
+//! # Usage
+//!
+//! This client is a complete, executable binary. There is no need to use it as
+//! a library, since its setup doesn't allow this behavior.
 
 use bevy::{log::LogPlugin, prelude::*};
-use funksyscore::FunkSystemPlugin;
+use funksysbevy::FunkSystemPlugin;
 use log::info;
 
 /// Entry point for the program.

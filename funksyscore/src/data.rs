@@ -1,11 +1,6 @@
-use dirs::config_dir;
+use log::warn;
 use serde::{de::DeserializeOwned, Deserialize, Serialize};
-use std::{
-    fs,
-    fs::{create_dir, read_to_string},
-    io::{Error, ErrorKind, Result as IoResult},
-    path::PathBuf,
-};
+use std::{fs, fs::read_to_string, io::Result as IoResult, path::PathBuf};
 
 /// Primary data trait, through [RON](https://docs.rs/ron/).
 ///
@@ -45,16 +40,28 @@ pub trait SaveData: Default + DataContext {
     ///
     /// If the data couldn't be copied for whatever reason, then this method
     /// will instead return the default structure, as allowed by [Default].
-    fn read() -> Self {
-        match ron_path(Self::get_filename().unwrap().as_str()) {
-            Ok(path) => match read_to_string(path) {
-                Ok(contents) => match ron::from_str::<Self>(contents.as_str()) {
-                    Ok(data) => data,
-                    Err(_) => Self::default(),
-                },
-                Err(_) => Self::default(),
+    fn read(path: PathBuf) -> Self {
+        match read_to_string(ron_path(
+            path.to_owned(),
+            Self::get_filename().unwrap().as_str(),
+        )) {
+            Ok(contents) => match ron::from_str::<Self>(contents.as_str()) {
+                Ok(data) => data,
+                Err(_) => {
+                    warn!(
+                        "{}.ron is not valid in location {}, assuming Default; \
+                            file may be overwritten at a later point",
+                        Self::get_filename().unwrap(),
+                        path.display()
+                    );
+                    Self::default()
+                }
             },
-            Err(_) => Self::default(),
+            Err(_) => {
+                let store: Self = Self::default();
+                let _ = store.write(path);
+                store
+            }
         }
     }
     /// Writes the structure's fields to the assigned file.
@@ -62,12 +69,9 @@ pub trait SaveData: Default + DataContext {
     /// The structure's data is serialized and then written to a file, based on
     /// [ron_path]'s output. If [ron_path] fails, then it will instead used the
     /// working directory.
-    fn write(&self) -> IoResult<()> {
+    fn write(&self, path: PathBuf) -> IoResult<()> {
         match fs::write(
-            match ron_path(Self::get_filename().unwrap().as_str()) {
-                Ok(path) => path,
-                Err(_) => PathBuf::from(Self::get_filename().unwrap() + ".ron"),
-            },
+            ron_path(path, Self::get_filename().unwrap().as_str()),
             ron::ser::to_string_pretty(self, ron::ser::PrettyConfig::default()).unwrap(),
         ) {
             Ok(_) => Ok(()),
@@ -116,18 +120,10 @@ impl Default for Keybindings {
 ///
 /// Settings are managed through this simple structure. It contains things
 /// such as [keybinding information](Keybindings), window settings, and more.
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Default, Debug, Deserialize, Serialize)]
 pub struct Settings {
     /// Defines valid controls.
     pub controls: Keybindings,
-}
-
-impl Default for Settings {
-    fn default() -> Settings {
-        Settings {
-            controls: Keybindings::default(),
-        }
-    }
 }
 
 impl DataContext for Settings {
@@ -141,54 +137,12 @@ impl DataContext for Settings {
 
 impl SaveData for Settings {}
 
-/// Convenience function for quickly generating the save directory.
-pub fn generate_save_dir() -> IoResult<()> {
-    match config_dir() {
-        Some(path) => {
-            let mut path: PathBuf = path;
-            path.push(std::env::var("CARGO_PKG_NAME").unwrap_or("funksystem".to_string()));
-            create_dir(&path)
-        }
-        None => IoResult::Err(Error::new(
-            ErrorKind::NotFound,
-            "global config directory not found",
-        )),
-    }
-}
-
-/// Convenience function for fetching the save directory.
-pub fn fetch_save_dir() -> IoResult<PathBuf> {
-    match config_dir() {
-        Some(path) => {
-            let mut path: PathBuf = path;
-            path.push(std::env::var("CARGO_PKG_NAME").unwrap_or("funksystem".to_string()));
-            match path.try_exists() {
-                Ok(exists) => match exists {
-                    true => Ok(path),
-                    false => Err(Error::new(ErrorKind::NotFound, "save directory not found")),
-                },
-                Err(e) => Err(e),
-            }
-        }
-        None => Err(Error::new(
-            ErrorKind::NotFound,
-            "global config directory not found",
-        )),
-    }
-}
-
 /// Generates a valid RON path.
 ///
 /// This produces a valid RON path for either read or write operations to use.
 /// It will fail if no save directory is available.
-pub fn ron_path(filename: &str) -> IoResult<PathBuf> {
-    match fetch_save_dir() {
-        Ok(path) => {
-            let mut path: PathBuf = path;
-            path.push(filename);
-            path.set_extension("ron");
-            Ok(path)
-        }
-        Err(e) => Err(e),
-    }
+pub fn ron_path(mut path: PathBuf, filename: &str) -> PathBuf {
+    path.push(filename);
+    path.set_extension("ron");
+    path
 }

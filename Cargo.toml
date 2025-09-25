@@ -1,5 +1,5 @@
 [workspace]
-members = ["funksystem", "funksyscore"]
+members = ["funksystem", "funksyscore", "funksysbevy"]
 resolver = "3"
 
 [profile.dev]

@@ -1,5 +1,3 @@
-use bevy::prelude::*;
-
 /// Defines a pair of coordinates.
 ///
 /// Typically, components such as [Position] will implement this trait, because
@@ -17,7 +15,6 @@ pub trait Vector2<T> {
 }
 
 /// Defines the position for a certain graphic.
-#[derive(Component)]
 #[allow(dead_code)] // TODO: remove once fields will be read
 pub struct Position(pub u16, pub u16);
 
@@ -37,7 +34,6 @@ impl Vector2<u16> for Position {
 }
 
 /// Defines the scale for a certain graphic.
-#[derive(Component)]
 #[allow(dead_code)] // TODO: remove once fields will be read
 pub struct Scale(pub u8, pub u8);
 

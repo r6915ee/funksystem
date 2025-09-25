@@ -1,0 +1,12 @@
+(
+    controls: (
+        ui_left: 'a',
+        ui_down: 's',
+        ui_up: 'w',
+        ui_right: 'd',
+        note_left: 'a',
+        note_down: 's',
+        note_up: 'w',
+        note_right: 'd',
+    ),
+)

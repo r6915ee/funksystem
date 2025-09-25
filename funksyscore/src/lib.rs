@@ -12,21 +12,62 @@
 //!
 //! # Usage
 //!
-//! Clients will typically use [`FunkSystemPlugin`] if they're made in
-//! [Bevy](https://bevy.org/). This is a plugin that introduces particular
-//! systems that are useful to any client following a similar structure
-//! to the main client.
-//!
-//! Including it is as simple as:
+//! An example of using the library is, for example, modifying save data:
 //!
 //! ```
-//! use bevy::prelude::*;
-//! use funksyscore::FunkSystemPlugin;
+//! use funksyscore::data::Settings;
+//! use funksyscore::data::SaveData;
 //!
-//! fn main() {
-//!     App::new().add_plugins((FunkSystemPlugin)).run();
-//! }
+//! let settings: Settings = Settings::read(".".into());
+//! settings.write(".".into());
 //! ```
+//!
+//! Each couple of lines does something different.
+//!
+//! ```
+//! use funksyscore::data::Settings;
+//! use funksyscore::data::SaveData;
+//! #
+//! # let settings: Settings = Settings::read(".".into());
+//! # settings.write(".".into());
+//! ```
+//!
+//! [`Settings`](data::Settings) is the primary structure that is responsible
+//! for settings configuration. [`SaveData`](data::SaveData) is a trait used
+//! by [`Settings`](data::Settings) that implements two methods,
+//! [`read`](data::SaveData::read) and [`write`](data::SaveData::write).
+//!
+//! ```
+//! # use funksyscore::data::Settings;
+//! # use funksyscore::data::SaveData;
+//! #
+//! let settings: Settings = Settings::read(".".into());
+//! # settings.write(".".into());
+//! ```
+//!
+//! [`read`](data::SaveData::read) uses the first parameter as a
+//! [`PathBuf`](std::path::PathBuf), and then searches for a specific file
+//! under that path. If it's valid [RON](https://docs.rs/ron/) data - the
+//! primary language for data in `funksyscore` - then it returns the
+//! deserialized structure. Otherwise, it will return a default structure.
+//!
+//! In this case, it will attempt to find the file in the working directory.
+//!
+//! ```
+//! # use funksyscore::data::Settings;
+//! # use funksyscore::data::SaveData;
+//! #
+//! # let settings: Settings = Settings::read(".".into());
+//! settings.write(".".into());
+//! ```
+//!
+//! [`write`](data::SaveData::write) uses the same parameter as the previous
+//! method. However, it will instead attempt to write to the location searched
+//! for in its reading counterpart.
+//!
+//! All implementations of [`SaveData`](data::SaveData) expose these methods to
+//! simplify the usage of save data in general, due to the multi-file system of
+//! save data in `funksyscore`.
 
 /// A module defining most graphics capabilities.
 ///
@@ -64,47 +105,3 @@ pub mod data;
 /// This system allows reusability, in contrast to other chart systems, and
 /// exists to make use of the Entity Component System paradigm.
 pub mod chart;
-
-use bevy::prelude::*;
-use data::*;
-use log::info;
-use std::io::ErrorKind;
-
-/// Basic sample system.
-pub fn hello_system() {
-    info!("Hello, world!");
-}
-
-/// System responsible for creating save data.
-pub fn save_system() {
-    match generate_save_dir() {
-        Ok(_) => (),
-        Err(e) => match e.kind() {
-            ErrorKind::AlreadyExists => (),
-            ErrorKind::NotFound => panic!("{}", e),
-            _ => (),
-        },
-    }
-
-    let settings: Settings = Settings::read();
-    settings.write().unwrap();
-
-    info!(
-        "Parsed settings: {}",
-        ron::ser::to_string_pretty(&settings, ron::ser::PrettyConfig::default()).unwrap()
-    );
-}
-
-/// Provides most systems directly.
-///
-/// `FunkSystemPlugin` is the primary plugin loaded by the game; that is,
-/// it is a [Bevy](https://bevy.org/) plugin which offers most common
-/// systems for the game.
-pub struct FunkSystemPlugin;
-
-impl Plugin for FunkSystemPlugin {
-    fn build(&self, app: &mut App) {
-        app.add_systems(Startup, hello_system);
-        app.add_systems(Startup, save_system);
-    }
-}

@@ -2169,11 +2169,21 @@ dependencies = [
 ]
 
 [[package]]
-name = "funksyscore"
+name = "funksysbevy"
 version = "0.1.0"
 dependencies = [
  "bevy",
  "dirs",
+ "funksyscore",
+ "log",
+ "ron 0.11.0",
+ "serde",
+]
+
+[[package]]
+name = "funksyscore"
+version = "0.1.0"
+dependencies = [
  "log",
  "ron 0.11.0",
  "serde",
@@ -2186,6 +2196,7 @@ dependencies = [
  "bevy",
  "bevy-panic-handler",
  "clang_log",
+ "funksysbevy",
  "funksyscore",
  "log",
 ]
