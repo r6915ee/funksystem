@@ -16,6 +16,8 @@ let
       rustfmt
       rust-analyzer
       clippy
+      just
+      just-formatter
     ]
     ++ (with xorg; [
       libX11

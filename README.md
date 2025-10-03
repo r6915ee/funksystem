@@ -45,15 +45,39 @@ differences from most other fangame engines for Friday Night Funkin':
 The [Rust toolchain](https://rust-lang.org/) is necessary for compilation.
 Either use Rustup, or install the compiler, Cargo, and Clippy.
 
+Additionally, albeit not required, [`just`](https://github.com/casey/just) has
+many recipes that are shorthands for a variety of tasks; for example,
+documentation tests happen before the documentation actually gets generated in
+the `doc` recipe. For this reason, the below examples will use `just`.
+
 Compilation can be performed using the typical subcommand:
 
 ```sh
-cargo build
+# Builds the workspace using the "dev" profile.
+just dev
 ```
 
 This will take a noticeably long amount of time initially. However, due to the
 way that Cargo works with the Rust compiler, further compilations should be
 faster, partly due to the way that Bevy is set up.
+
+### Documentation
+
+Documentation can be tested and then generated using the following recipe:
+
+```sh
+just doc
+```
+
+Additionally, a `view-docs` recipe exists that allows triggering an HTTP
+server defined using `$HTTP_SERVER`. This opens the specified HTTP server in
+the `target/doc` directory. The following examples assumes that
+[http-server](https://github.com/http-party/http-server) is the server to use:
+
+```sh
+export HTTP_SERVER=http-server
+just view-docs
+```
 
 ## License
 
