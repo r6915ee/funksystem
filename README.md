@@ -32,8 +32,9 @@ differences from most other fangame engines for Friday Night Funkin':
 * FunkSystem is designed to rely on a client architecture by being modular.
   This allows multiple clients to be built, allowing custom clients to be
   built more properly.
-* Most prior concepts are discarded to aid with the client architecture.
-  However, utilities are available for migration.
+* Most prior concepts, such as Sparrow Atlases and JSON, are discarded to aid
+  with the client architecture. However, utilities are available for migrating
+  certain assets.
 
 ## Building
 
