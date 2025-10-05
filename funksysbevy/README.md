@@ -1,5 +1,5 @@
 <div align="center">
-    <h1><img src="icon.png" alt="FunkSystem Component Logo"></h1>
+    <h1><img src="../icon.png" alt="FunkSystem Component Logo"></h1>
 </div>
 
 # `funksysbevy`
