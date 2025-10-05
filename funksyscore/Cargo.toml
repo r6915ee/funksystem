@@ -1,5 +1,11 @@
 [package]
 name = "funksyscore"
+description = "Core asset handling for FunkSystem"
+authors = ["r6915ee <astergthefourth@gmail.com>"]
+license = "MIT"
+categories = ["games"]
+repository = "https://codeberg.org/r6915ee/funksystem"
+keywords = ["fnf"]
 version = "0.1.0"
 edition = "2024"
 
