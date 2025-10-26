@@ -22,12 +22,19 @@ use log::info;
 fn main() {
     let mut crash_metadata: crashlog::ProgramMetadata = cargo_metadata!();
     crash_metadata.package = std::borrow::Cow::Borrowed("FunkSystem");
-    crashlog::setup!(cargo_metadata!().capitalized(), false);
+    crashlog::setup!(
+        cargo_metadata!().capitalized(),
+        false,
+        "\
+        {package} has crashed.\n\nPlease open an issue on the issue tracker hosted \
+        at {repository}, and copy and paste the contents of {log_path} where \
+        appropriate.
+    "
+    );
 
     clang_log::init(log::Level::Warn, "funksystem");
     info!("initializing game");
     App::new()
         .add_plugins((DefaultPlugins, FunkSystemPlugin))
         .run();
-    panic!("test");
 }
