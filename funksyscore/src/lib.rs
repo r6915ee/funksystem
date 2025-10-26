@@ -69,18 +69,6 @@
 //! simplify the usage of save data in general, due to the multi-file system of
 //! save data in `funksyscore`.
 
-/// A module defining most graphics capabilities.
-///
-/// Graphics are handled through this module. This includes thing such as
-/// [positioning](graphics::Position), and more.
-pub mod graphics;
-
-/// A module defining most data solutions.
-///
-/// General data is managed through this module. They are parsed through [Rusty
-/// Object Notation](https://docs.rs/ron/), a JSON-like language.
-pub mod data;
-
 /// A module defining chart-specific data solutions.
 ///
 /// Charts are the primary focus of `funksyscore` and act very differently
@@ -95,8 +83,8 @@ pub mod data;
 /// * **Measures**: Measures are an additional unit of measurement for charts,
 ///   and are typically distributed on their own.
 /// * **Hooks**: Hooks are assigned a certain step. When that step is reached,
-///   then the hook is run, creating an entity with the hook's assigned
-///   components at that point in time.
+///   then the hook is run, being used in conjunction with the other hooks at
+///   that step; this is typically used to create an entity.
 /// * **Layers**: Layers are assigned a certain set of hooks and may be
 ///   activated and deactivated at will.
 /// * **Sets**: Typically identified in-game as *difficulties*, sets activate

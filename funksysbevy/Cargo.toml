@@ -10,7 +10,21 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-bevy = "0.16.1"
+bevy = { version = "0.17.2", default-features = false, features = [
+  "bevy_asset",
+  "bevy_audio",
+  "bevy_core_pipeline",
+  "bevy_render",
+  "bevy_scene",
+  "bevy_sprite",
+  "bevy_state",
+  "bevy_text",
+  "bevy_window",
+  "bevy_winit",
+  "png",
+  "vorbis",
+  "x11"
+] }
 log = "0.4.28"
 funksyscore = { version = "0.1.0", path = "../funksyscore" }
 serde = "1.0.226"

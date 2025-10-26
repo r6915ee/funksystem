@@ -1,7 +1,11 @@
 use bevy::prelude::*;
-use funksyscore::data::*;
-use log::warn;
+use log::{info, warn};
 use std::{env::var, fs::create_dir_all, path::PathBuf};
+
+/// Handles various save data.
+pub mod data;
+
+use data::*;
 
 /// Convenience function for getting the configuration directory.
 ///

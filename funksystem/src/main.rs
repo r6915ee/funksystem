@@ -13,19 +13,21 @@
 //! This client is a complete, executable binary. There is no need to use it as
 //! a library, since its setup doesn't allow this behavior.
 
-use bevy::{log::LogPlugin, prelude::*};
+use bevy::prelude::*;
+use crashlog::cargo_metadata;
 use funksysbevy::FunkSystemPlugin;
 use log::info;
 
 /// Entry point for the program.
 fn main() {
+    let mut crash_metadata: crashlog::ProgramMetadata = cargo_metadata!();
+    crash_metadata.package = std::borrow::Cow::Borrowed("FunkSystem");
+    crashlog::setup!(cargo_metadata!().capitalized(), false);
+
     clang_log::init(log::Level::Warn, "funksystem");
     info!("initializing game");
     App::new()
-        .add_plugins((
-            bevy_panic_handler::PanicHandler::new().build(),
-            DefaultPlugins.build().disable::<LogPlugin>(),
-            FunkSystemPlugin,
-        ))
+        .add_plugins((DefaultPlugins, FunkSystemPlugin))
         .run();
+    panic!("test");
 }
